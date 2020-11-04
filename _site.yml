@@ -9,6 +9,8 @@ navbar:
       href: mailto:<jaredk1097@gmail.com>
     - icon: fa-github fa-lg
       href: http://github.com/jak2312/
+    - icon: fa-linkedin fa-lg
+      href: https://www.linkedin.com/in/jaredklug/
 output:
   html_document:
     theme: cerulean
