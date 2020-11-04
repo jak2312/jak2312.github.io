@@ -2,14 +2,34 @@
 title: "Instacart Plots - Plotly"
 output: 
   html_document:
+    code_folding: hide
     toc: true
     toc_float: true
 ---
 
-
 ```{r, setup}
 library(tidyverse)
 library(p8105.datasets)
-
+library(plotly)
 ```
+
+```{r clean_data}
+data("instacart")
+
+instacart = 
+  instacart %>% 
+  select(-eval_set, -add_to_cart_order, -order_id, -days_since_prior_order)
+```
+
+```{r}
+instacart %>% 
+	count(aisle) %>% 
+	mutate(
+		aisle = factor(aisle),
+		aisle = fct_reorder(aisle, n)
+	) %>% 
+	plot_ly(y = ~n, x = ~aisle, color = ~aisle,
+	        type = "bar", colors = "viridis")
+```
+
 

@@ -5,8 +5,8 @@ navbar:
   right:
     - text: "About"
       href: about.html
-    - text: "Plotly"
-      href: plotly.html
+    - text: "Instacart"
+      href: dashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<jaredk1097@gmail.com>
     - icon: fa-github fa-lg
@@ -15,4 +15,4 @@ navbar:
       href: https://www.linkedin.com/in/jaredklug/
 output:
   html_document:
-    theme: readable
+    theme: cerulean

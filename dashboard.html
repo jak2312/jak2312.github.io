@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Dashboard</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="dashboard.html">Instacart</a>
+</li>
+<li>
+  <a href="mailto:&lt;jaredk1097@gmail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/jak2312/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/jaredklug/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Dashboard</h1>
+
+</div>
+
+
+<pre class="r"><code>data(&quot;instacart&quot;)
+
+instacart = 
+  instacart %&gt;% 
+  select(-eval_set, -add_to_cart_order, -order_id, -days_since_prior_order)</code></pre>
+<div id="column" class="section level2" data-width="650">
+<h2>Column</h2>
+<div id="chart-a" class="section level3">
+<h3>Chart A</h3>
+<pre class="r"><code>instacart %&gt;% 
+    count(aisle) %&gt;% 
+    mutate(
+        aisle = factor(aisle),
+        aisle = fct_reorder(aisle, n)
+    ) %&gt;% 
+    plot_ly(y = ~n, x = ~aisle, color = ~aisle,
+            type = &quot;bar&quot;, colors = &quot;viridis&quot;) %&gt;% 
+  layout(
+    title = &quot;Items ordered by Aisle&quot;,
+    xaxis = list(title = &quot;Aisle&quot;),
+    yaxis = list(title = &quot;# Ordered&quot;)
+    )</code></pre>
+<pre><code>## Warning: `arrange_()` is deprecated as of dplyr 0.7.0.
+## Please use `arrange()` instead.
+## See vignette(&#39;programming&#39;) for more help
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<div id="htmlwidget-f233a15e12155d4538c8" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f233a15e12155d4538c8">{"x":{"visdat":{"ff05467ccb6c":["function () ","plotlyVisDat"]},"cur_data":"ff05467ccb6c","attrs":{"ff05467ccb6c":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Items ordered by Aisle","xaxis":{"domain":[0,1],"automargin":true,"title":"Aisle","type":"category","categoryorder":"array","categoryarray":["beauty","frozen juice","baby accessories","baby bath body care","kitchen supplies","specialty wines champagnes","ice cream toppings","shave needs","skin care","first aid","eye ear care","kosher foods","bulk grains rice dried goods","indian foods","bulk dried fruits vegetables","facial care","deodorants","more household","muscles joints pain relief","packaged seafood","frozen dessert","mint gum","spirits","feminine care","cocoa drink mixes","air fresheners candles","seafood counter","white wines","baking supplies decor","diapers wipes","digestion","red wines","cold flu allergy","trail mix snack mix","hair care","bakery desserts","packaged meat","frozen breads doughs","dog food care","protein meal replacements","trash bags liners","fresh pasta","refrigerated pudding desserts","other","beers coolers","plates bowls cups flatware","vitamins supplements","body lotions soap","soap","honeys syrups nectars","cat food care","marinades meat preparation","food storage","prepared soups salads","oral hygiene","breakfast bars pastries","meat counter","canned meat seafood","frozen meat seafood","latino foods","granola","dish detergents","specialty cheeses","canned fruit applesauce","prepared meals","laundry","salad dressing toppings","frozen vegan vegetarian","energy sports drinks","doughs gelatins bake mixes","pickled goods olives","buns rolls","tofu meat alternatives","preserved dips spreads","poultry counter","packaged poultry","cleaning products","grains rice dried goods","hot cereal pancake mixes","fruit vegetable snacks","popcorn jerky","asian foods","frozen pizza","missing","tortillas flat bread","coffee","frozen appetizers sides","spices seasonings","tea","frozen breakfast","pasta sauce","condiments","breakfast bakery","instant foods","cookies cakes","butter","oils vinegars","dry pasta","candy chocolate","canned meals beans","spreads","cream","nuts seeds dried fruit","canned jarred vegetables","paper goods","hot dogs bacon sausage","other creams cheeses","baking ingredients","baby food formula","packaged produce","juice nectars","soup broth bouillon","fresh dips tapenades","fresh herbs","cereal","soft drinks","lunch meat","energy granola bars","frozen meals","crackers","eggs","frozen produce","ice cream ice","refrigerated","bread","soy lactosefree","chips pretzels","milk","water seltzer sparkling water","packaged cheese","yogurt","packaged vegetables fruits","fresh fruits","fresh vegetables"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"# Ordered"},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"y":[287],"x":["beauty"],"type":"bar","name":"beauty","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[294],"x":["frozen juice"],"type":"bar","name":"frozen juice","marker":{"color":"rgba(69,4,87,1)","line":{"color":"rgba(69,4,87,1)"}},"textfont":{"color":"rgba(69,4,87,1)"},"error_y":{"color":"rgba(69,4,87,1)"},"error_x":{"color":"rgba(69,4,87,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[306],"x":["baby accessories"],"type":"bar","name":"baby accessories","marker":{"color":"rgba(70,7,90,1)","line":{"color":"rgba(70,7,90,1)"}},"textfont":{"color":"rgba(70,7,90,1)"},"error_y":{"color":"rgba(70,7,90,1)"},"error_x":{"color":"rgba(70,7,90,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[328],"x":["baby bath body care"],"type":"bar","name":"baby bath body care","marker":{"color":"rgba(70,9,93,1)","line":{"color":"rgba(70,9,93,1)"}},"textfont":{"color":"rgba(70,9,93,1)"},"error_y":{"color":"rgba(70,9,93,1)"},"error_x":{"color":"rgba(70,9,93,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[448],"x":["kitchen supplies"],"type":"bar","name":"kitchen supplies","marker":{"color":"rgba(71,12,95,1)","line":{"color":"rgba(71,12,95,1)"}},"textfont":{"color":"rgba(71,12,95,1)"},"error_y":{"color":"rgba(71,12,95,1)"},"error_x":{"color":"rgba(71,12,95,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[461],"x":["specialty wines champagnes"],"type":"bar","name":"specialty wines champagnes","marker":{"color":"rgba(71,15,98,1)","line":{"color":"rgba(71,15,98,1)"}},"textfont":{"color":"rgba(71,15,98,1)"},"error_y":{"color":"rgba(71,15,98,1)"},"error_x":{"color":"rgba(71,15,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[504],"x":["ice cream toppings"],"type":"bar","name":"ice cream toppings","marker":{"color":"rgba(71,18,101,1)","line":{"color":"rgba(71,18,101,1)"}},"textfont":{"color":"rgba(71,18,101,1)"},"error_y":{"color":"rgba(71,18,101,1)"},"error_x":{"color":"rgba(71,18,101,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[532],"x":["shave needs"],"type":"bar","name":"shave needs","marker":{"color":"rgba(72,21,103,1)","line":{"color":"rgba(72,21,103,1)"}},"textfont":{"color":"rgba(72,21,103,1)"},"error_y":{"color":"rgba(72,21,103,1)"},"error_x":{"color":"rgba(72,21,103,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[534],"x":["skin care"],"type":"bar","name":"skin care","marker":{"color":"rgba(72,23,105,1)","line":{"color":"rgba(72,23,105,1)"}},"textfont":{"color":"rgba(72,23,105,1)"},"error_y":{"color":"rgba(72,23,105,1)"},"error_x":{"color":"rgba(72,23,105,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[539],"x":["first aid"],"type":"bar","name":"first aid","marker":{"color":"rgba(72,26,108,1)","line":{"color":"rgba(72,26,108,1)"}},"textfont":{"color":"rgba(72,26,108,1)"},"error_y":{"color":"rgba(72,26,108,1)"},"error_x":{"color":"rgba(72,26,108,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[548],"x":["eye ear care"],"type":"bar","name":"eye ear care","marker":{"color":"rgba(72,28,110,1)","line":{"color":"rgba(72,28,110,1)"}},"textfont":{"color":"rgba(72,28,110,1)"},"error_y":{"color":"rgba(72,28,110,1)"},"error_x":{"color":"rgba(72,28,110,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[628],"x":["kosher foods"],"type":"bar","name":"kosher foods","marker":{"color":"rgba(72,31,112,1)","line":{"color":"rgba(72,31,112,1)"}},"textfont":{"color":"rgba(72,31,112,1)"},"error_y":{"color":"rgba(72,31,112,1)"},"error_x":{"color":"rgba(72,31,112,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[634],"x":["bulk grains rice dried goods"],"type":"bar","name":"bulk grains rice dried goods","marker":{"color":"rgba(72,33,115,1)","line":{"color":"rgba(72,33,115,1)"}},"textfont":{"color":"rgba(72,33,115,1)"},"error_y":{"color":"rgba(72,33,115,1)"},"error_x":{"color":"rgba(72,33,115,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[719],"x":["indian foods"],"type":"bar","name":"indian foods","marker":{"color":"rgba(72,36,117,1)","line":{"color":"rgba(72,36,117,1)"}},"textfont":{"color":"rgba(72,36,117,1)"},"error_y":{"color":"rgba(72,36,117,1)"},"error_x":{"color":"rgba(72,36,117,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[725],"x":["bulk dried fruits vegetables"],"type":"bar","name":"bulk dried fruits vegetables","marker":{"color":"rgba(72,38,119,1)","line":{"color":"rgba(72,38,119,1)"}},"textfont":{"color":"rgba(72,38,119,1)"},"error_y":{"color":"rgba(72,38,119,1)"},"error_x":{"color":"rgba(72,38,119,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[746],"x":["facial care"],"type":"bar","name":"facial care","marker":{"color":"rgba(72,41,121,1)","line":{"color":"rgba(72,41,121,1)"}},"textfont":{"color":"rgba(72,41,121,1)"},"error_y":{"color":"rgba(72,41,121,1)"},"error_x":{"color":"rgba(72,41,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[858],"x":["deodorants"],"type":"bar","name":"deodorants","marker":{"color":"rgba(71,43,122,1)","line":{"color":"rgba(71,43,122,1)"}},"textfont":{"color":"rgba(71,43,122,1)"},"error_y":{"color":"rgba(71,43,122,1)"},"error_x":{"color":"rgba(71,43,122,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[891],"x":["more household"],"type":"bar","name":"more household","marker":{"color":"rgba(71,46,124,1)","line":{"color":"rgba(71,46,124,1)"}},"textfont":{"color":"rgba(71,46,124,1)"},"error_y":{"color":"rgba(71,46,124,1)"},"error_x":{"color":"rgba(71,46,124,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[897],"x":["muscles joints pain relief"],"type":"bar","name":"muscles joints pain relief","marker":{"color":"rgba(70,48,126,1)","line":{"color":"rgba(70,48,126,1)"}},"textfont":{"color":"rgba(70,48,126,1)"},"error_y":{"color":"rgba(70,48,126,1)"},"error_x":{"color":"rgba(70,48,126,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[909],"x":["packaged seafood"],"type":"bar","name":"packaged seafood","marker":{"color":"rgba(70,50,126,1)","line":{"color":"rgba(70,50,126,1)"}},"textfont":{"color":"rgba(70,50,126,1)"},"error_y":{"color":"rgba(70,50,126,1)"},"error_x":{"color":"rgba(70,50,126,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[922],"x":["frozen dessert"],"type":"bar","name":"frozen dessert","marker":{"color":"rgba(70,52,128,1)","line":{"color":"rgba(70,52,128,1)"}},"textfont":{"color":"rgba(70,52,128,1)"},"error_y":{"color":"rgba(70,52,128,1)"},"error_x":{"color":"rgba(70,52,128,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[962],"x":["mint gum"],"type":"bar","name":"mint gum","marker":{"color":"rgba(69,55,129,1)","line":{"color":"rgba(69,55,129,1)"}},"textfont":{"color":"rgba(69,55,129,1)"},"error_y":{"color":"rgba(69,55,129,1)"},"error_x":{"color":"rgba(69,55,129,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[967],"x":["spirits"],"type":"bar","name":"spirits","marker":{"color":"rgba(68,57,131,1)","line":{"color":"rgba(68,57,131,1)"}},"textfont":{"color":"rgba(68,57,131,1)"},"error_y":{"color":"rgba(68,57,131,1)"},"error_x":{"color":"rgba(68,57,131,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1048],"x":["feminine care"],"type":"bar","name":"feminine care","marker":{"color":"rgba(68,59,132,1)","line":{"color":"rgba(68,59,132,1)"}},"textfont":{"color":"rgba(68,59,132,1)"},"error_y":{"color":"rgba(68,59,132,1)"},"error_x":{"color":"rgba(68,59,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1062],"x":["cocoa drink mixes"],"type":"bar","name":"cocoa drink mixes","marker":{"color":"rgba(67,62,133,1)","line":{"color":"rgba(67,62,133,1)"}},"textfont":{"color":"rgba(67,62,133,1)"},"error_y":{"color":"rgba(67,62,133,1)"},"error_x":{"color":"rgba(67,62,133,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1067],"x":["air fresheners candles"],"type":"bar","name":"air fresheners candles","marker":{"color":"rgba(66,64,134,1)","line":{"color":"rgba(66,64,134,1)"}},"textfont":{"color":"rgba(66,64,134,1)"},"error_y":{"color":"rgba(66,64,134,1)"},"error_x":{"color":"rgba(66,64,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1084],"x":["seafood counter"],"type":"bar","name":"seafood counter","marker":{"color":"rgba(65,66,135,1)","line":{"color":"rgba(65,66,135,1)"}},"textfont":{"color":"rgba(65,66,135,1)"},"error_y":{"color":"rgba(65,66,135,1)"},"error_x":{"color":"rgba(65,66,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1088],"x":["white wines"],"type":"bar","name":"white wines","marker":{"color":"rgba(64,69,136,1)","line":{"color":"rgba(64,69,136,1)"}},"textfont":{"color":"rgba(64,69,136,1)"},"error_y":{"color":"rgba(64,69,136,1)"},"error_x":{"color":"rgba(64,69,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1094],"x":["baking supplies decor"],"type":"bar","name":"baking supplies decor","marker":{"color":"rgba(63,71,136,1)","line":{"color":"rgba(63,71,136,1)"}},"textfont":{"color":"rgba(63,71,136,1)"},"error_y":{"color":"rgba(63,71,136,1)"},"error_x":{"color":"rgba(63,71,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1109],"x":["diapers wipes"],"type":"bar","name":"diapers wipes","marker":{"color":"rgba(62,73,137,1)","line":{"color":"rgba(62,73,137,1)"}},"textfont":{"color":"rgba(62,73,137,1)"},"error_y":{"color":"rgba(62,73,137,1)"},"error_x":{"color":"rgba(62,73,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1205],"x":["digestion"],"type":"bar","name":"digestion","marker":{"color":"rgba(62,75,138,1)","line":{"color":"rgba(62,75,138,1)"}},"textfont":{"color":"rgba(62,75,138,1)"},"error_y":{"color":"rgba(62,75,138,1)"},"error_x":{"color":"rgba(62,75,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1243],"x":["red wines"],"type":"bar","name":"red wines","marker":{"color":"rgba(61,77,138,1)","line":{"color":"rgba(61,77,138,1)"}},"textfont":{"color":"rgba(61,77,138,1)"},"error_y":{"color":"rgba(61,77,138,1)"},"error_x":{"color":"rgba(61,77,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1346],"x":["cold flu allergy"],"type":"bar","name":"cold flu allergy","marker":{"color":"rgba(60,79,138,1)","line":{"color":"rgba(60,79,138,1)"}},"textfont":{"color":"rgba(60,79,138,1)"},"error_y":{"color":"rgba(60,79,138,1)"},"error_x":{"color":"rgba(60,79,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1463],"x":["trail mix snack mix"],"type":"bar","name":"trail mix snack mix","marker":{"color":"rgba(59,81,139,1)","line":{"color":"rgba(59,81,139,1)"}},"textfont":{"color":"rgba(59,81,139,1)"},"error_y":{"color":"rgba(59,81,139,1)"},"error_x":{"color":"rgba(59,81,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1469],"x":["hair care"],"type":"bar","name":"hair care","marker":{"color":"rgba(58,83,139,1)","line":{"color":"rgba(58,83,139,1)"}},"textfont":{"color":"rgba(58,83,139,1)"},"error_y":{"color":"rgba(58,83,139,1)"},"error_x":{"color":"rgba(58,83,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1501],"x":["bakery desserts"],"type":"bar","name":"bakery desserts","marker":{"color":"rgba(57,85,140,1)","line":{"color":"rgba(57,85,140,1)"}},"textfont":{"color":"rgba(57,85,140,1)"},"error_y":{"color":"rgba(57,85,140,1)"},"error_x":{"color":"rgba(57,85,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1526],"x":["packaged meat"],"type":"bar","name":"packaged meat","marker":{"color":"rgba(56,88,140,1)","line":{"color":"rgba(56,88,140,1)"}},"textfont":{"color":"rgba(56,88,140,1)"},"error_y":{"color":"rgba(56,88,140,1)"},"error_x":{"color":"rgba(56,88,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1532],"x":["frozen breads doughs"],"type":"bar","name":"frozen breads doughs","marker":{"color":"rgba(55,90,140,1)","line":{"color":"rgba(55,90,140,1)"}},"textfont":{"color":"rgba(55,90,140,1)"},"error_y":{"color":"rgba(55,90,140,1)"},"error_x":{"color":"rgba(55,90,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1612],"x":["dog food care"],"type":"bar","name":"dog food care","marker":{"color":"rgba(54,92,141,1)","line":{"color":"rgba(54,92,141,1)"}},"textfont":{"color":"rgba(54,92,141,1)"},"error_y":{"color":"rgba(54,92,141,1)"},"error_x":{"color":"rgba(54,92,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1612],"x":["protein meal replacements"],"type":"bar","name":"protein meal replacements","marker":{"color":"rgba(53,94,141,1)","line":{"color":"rgba(53,94,141,1)"}},"textfont":{"color":"rgba(53,94,141,1)"},"error_y":{"color":"rgba(53,94,141,1)"},"error_x":{"color":"rgba(53,94,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1621],"x":["trash bags liners"],"type":"bar","name":"trash bags liners","marker":{"color":"rgba(52,96,141,1)","line":{"color":"rgba(52,96,141,1)"}},"textfont":{"color":"rgba(52,96,141,1)"},"error_y":{"color":"rgba(52,96,141,1)"},"error_x":{"color":"rgba(52,96,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1628],"x":["fresh pasta"],"type":"bar","name":"fresh pasta","marker":{"color":"rgba(51,98,141,1)","line":{"color":"rgba(51,98,141,1)"}},"textfont":{"color":"rgba(51,98,141,1)"},"error_y":{"color":"rgba(51,98,141,1)"},"error_x":{"color":"rgba(51,98,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1729],"x":["refrigerated pudding desserts"],"type":"bar","name":"refrigerated pudding desserts","marker":{"color":"rgba(50,100,142,1)","line":{"color":"rgba(50,100,142,1)"}},"textfont":{"color":"rgba(50,100,142,1)"},"error_y":{"color":"rgba(50,100,142,1)"},"error_x":{"color":"rgba(50,100,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1795],"x":["other"],"type":"bar","name":"other","marker":{"color":"rgba(50,101,142,1)","line":{"color":"rgba(50,101,142,1)"}},"textfont":{"color":"rgba(50,101,142,1)"},"error_y":{"color":"rgba(50,101,142,1)"},"error_x":{"color":"rgba(50,101,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1839],"x":["beers coolers"],"type":"bar","name":"beers coolers","marker":{"color":"rgba(49,103,142,1)","line":{"color":"rgba(49,103,142,1)"}},"textfont":{"color":"rgba(49,103,142,1)"},"error_y":{"color":"rgba(49,103,142,1)"},"error_x":{"color":"rgba(49,103,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1959],"x":["plates bowls cups flatware"],"type":"bar","name":"plates bowls cups flatware","marker":{"color":"rgba(48,105,142,1)","line":{"color":"rgba(48,105,142,1)"}},"textfont":{"color":"rgba(48,105,142,1)"},"error_y":{"color":"rgba(48,105,142,1)"},"error_x":{"color":"rgba(48,105,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1969],"x":["vitamins supplements"],"type":"bar","name":"vitamins supplements","marker":{"color":"rgba(47,107,142,1)","line":{"color":"rgba(47,107,142,1)"}},"textfont":{"color":"rgba(47,107,142,1)"},"error_y":{"color":"rgba(47,107,142,1)"},"error_x":{"color":"rgba(47,107,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2137],"x":["body lotions soap"],"type":"bar","name":"body lotions soap","marker":{"color":"rgba(46,109,142,1)","line":{"color":"rgba(46,109,142,1)"}},"textfont":{"color":"rgba(46,109,142,1)"},"error_y":{"color":"rgba(46,109,142,1)"},"error_x":{"color":"rgba(46,109,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2773],"x":["soap"],"type":"bar","name":"soap","marker":{"color":"rgba(46,111,142,1)","line":{"color":"rgba(46,111,142,1)"}},"textfont":{"color":"rgba(46,111,142,1)"},"error_y":{"color":"rgba(46,111,142,1)"},"error_x":{"color":"rgba(46,111,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2864],"x":["honeys syrups nectars"],"type":"bar","name":"honeys syrups nectars","marker":{"color":"rgba(45,113,142,1)","line":{"color":"rgba(45,113,142,1)"}},"textfont":{"color":"rgba(45,113,142,1)"},"error_y":{"color":"rgba(45,113,142,1)"},"error_x":{"color":"rgba(45,113,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2885],"x":["cat food care"],"type":"bar","name":"cat food care","marker":{"color":"rgba(44,114,142,1)","line":{"color":"rgba(44,114,142,1)"}},"textfont":{"color":"rgba(44,114,142,1)"},"error_y":{"color":"rgba(44,114,142,1)"},"error_x":{"color":"rgba(44,114,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2905],"x":["marinades meat preparation"],"type":"bar","name":"marinades meat preparation","marker":{"color":"rgba(43,116,142,1)","line":{"color":"rgba(43,116,142,1)"}},"textfont":{"color":"rgba(43,116,142,1)"},"error_y":{"color":"rgba(43,116,142,1)"},"error_x":{"color":"rgba(43,116,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2906],"x":["food storage"],"type":"bar","name":"food storage","marker":{"color":"rgba(42,118,142,1)","line":{"color":"rgba(42,118,142,1)"}},"textfont":{"color":"rgba(42,118,142,1)"},"error_y":{"color":"rgba(42,118,142,1)"},"error_x":{"color":"rgba(42,118,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2936],"x":["prepared soups salads"],"type":"bar","name":"prepared soups salads","marker":{"color":"rgba(42,120,142,1)","line":{"color":"rgba(42,120,142,1)"}},"textfont":{"color":"rgba(42,120,142,1)"},"error_y":{"color":"rgba(42,120,142,1)"},"error_x":{"color":"rgba(42,120,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3070],"x":["oral hygiene"],"type":"bar","name":"oral hygiene","marker":{"color":"rgba(41,122,142,1)","line":{"color":"rgba(41,122,142,1)"}},"textfont":{"color":"rgba(41,122,142,1)"},"error_y":{"color":"rgba(41,122,142,1)"},"error_x":{"color":"rgba(41,122,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3144],"x":["breakfast bars pastries"],"type":"bar","name":"breakfast bars pastries","marker":{"color":"rgba(41,123,142,1)","line":{"color":"rgba(41,123,142,1)"}},"textfont":{"color":"rgba(41,123,142,1)"},"error_y":{"color":"rgba(41,123,142,1)"},"error_x":{"color":"rgba(41,123,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3159],"x":["meat counter"],"type":"bar","name":"meat counter","marker":{"color":"rgba(40,125,142,1)","line":{"color":"rgba(40,125,142,1)"}},"textfont":{"color":"rgba(40,125,142,1)"},"error_y":{"color":"rgba(40,125,142,1)"},"error_x":{"color":"rgba(40,125,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3241],"x":["canned meat seafood"],"type":"bar","name":"canned meat seafood","marker":{"color":"rgba(39,127,142,1)","line":{"color":"rgba(39,127,142,1)"}},"textfont":{"color":"rgba(39,127,142,1)"},"error_y":{"color":"rgba(39,127,142,1)"},"error_x":{"color":"rgba(39,127,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3341],"x":["frozen meat seafood"],"type":"bar","name":"frozen meat seafood","marker":{"color":"rgba(38,129,142,1)","line":{"color":"rgba(38,129,142,1)"}},"textfont":{"color":"rgba(38,129,142,1)"},"error_y":{"color":"rgba(38,129,142,1)"},"error_x":{"color":"rgba(38,129,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3548],"x":["latino foods"],"type":"bar","name":"latino foods","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3803],"x":["granola"],"type":"bar","name":"granola","marker":{"color":"rgba(37,132,142,1)","line":{"color":"rgba(37,132,142,1)"}},"textfont":{"color":"rgba(37,132,142,1)"},"error_y":{"color":"rgba(37,132,142,1)"},"error_x":{"color":"rgba(37,132,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3870],"x":["dish detergents"],"type":"bar","name":"dish detergents","marker":{"color":"rgba(36,134,142,1)","line":{"color":"rgba(36,134,142,1)"}},"textfont":{"color":"rgba(36,134,142,1)"},"error_y":{"color":"rgba(36,134,142,1)"},"error_x":{"color":"rgba(36,134,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3873],"x":["specialty cheeses"],"type":"bar","name":"specialty cheeses","marker":{"color":"rgba(35,136,142,1)","line":{"color":"rgba(35,136,142,1)"}},"textfont":{"color":"rgba(35,136,142,1)"},"error_y":{"color":"rgba(35,136,142,1)"},"error_x":{"color":"rgba(35,136,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3996],"x":["canned fruit applesauce"],"type":"bar","name":"canned fruit applesauce","marker":{"color":"rgba(35,138,141,1)","line":{"color":"rgba(35,138,141,1)"}},"textfont":{"color":"rgba(35,138,141,1)"},"error_y":{"color":"rgba(35,138,141,1)"},"error_x":{"color":"rgba(35,138,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4133],"x":["prepared meals"],"type":"bar","name":"prepared meals","marker":{"color":"rgba(34,140,141,1)","line":{"color":"rgba(34,140,141,1)"}},"textfont":{"color":"rgba(34,140,141,1)"},"error_y":{"color":"rgba(34,140,141,1)"},"error_x":{"color":"rgba(34,140,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4636],"x":["laundry"],"type":"bar","name":"laundry","marker":{"color":"rgba(33,142,141,1)","line":{"color":"rgba(33,142,141,1)"}},"textfont":{"color":"rgba(33,142,141,1)"},"error_y":{"color":"rgba(33,142,141,1)"},"error_x":{"color":"rgba(33,142,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4719],"x":["salad dressing toppings"],"type":"bar","name":"salad dressing toppings","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4727],"x":["frozen vegan vegetarian"],"type":"bar","name":"frozen vegan vegetarian","marker":{"color":"rgba(33,145,140,1)","line":{"color":"rgba(33,145,140,1)"}},"textfont":{"color":"rgba(33,145,140,1)"},"error_y":{"color":"rgba(33,145,140,1)"},"error_x":{"color":"rgba(33,145,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4742],"x":["energy sports drinks"],"type":"bar","name":"energy sports drinks","marker":{"color":"rgba(32,146,140,1)","line":{"color":"rgba(32,146,140,1)"}},"textfont":{"color":"rgba(32,146,140,1)"},"error_y":{"color":"rgba(32,146,140,1)"},"error_x":{"color":"rgba(32,146,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4758],"x":["doughs gelatins bake mixes"],"type":"bar","name":"doughs gelatins bake mixes","marker":{"color":"rgba(31,148,140,1)","line":{"color":"rgba(31,148,140,1)"}},"textfont":{"color":"rgba(31,148,140,1)"},"error_y":{"color":"rgba(31,148,140,1)"},"error_x":{"color":"rgba(31,148,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4882],"x":["pickled goods olives"],"type":"bar","name":"pickled goods olives","marker":{"color":"rgba(31,150,139,1)","line":{"color":"rgba(31,150,139,1)"}},"textfont":{"color":"rgba(31,150,139,1)"},"error_y":{"color":"rgba(31,150,139,1)"},"error_x":{"color":"rgba(31,150,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5054],"x":["buns rolls"],"type":"bar","name":"buns rolls","marker":{"color":"rgba(31,152,139,1)","line":{"color":"rgba(31,152,139,1)"}},"textfont":{"color":"rgba(31,152,139,1)"},"error_y":{"color":"rgba(31,152,139,1)"},"error_x":{"color":"rgba(31,152,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5123],"x":["tofu meat alternatives"],"type":"bar","name":"tofu meat alternatives","marker":{"color":"rgba(31,154,138,1)","line":{"color":"rgba(31,154,138,1)"}},"textfont":{"color":"rgba(31,154,138,1)"},"error_y":{"color":"rgba(31,154,138,1)"},"error_x":{"color":"rgba(31,154,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5188],"x":["preserved dips spreads"],"type":"bar","name":"preserved dips spreads","marker":{"color":"rgba(30,156,137,1)","line":{"color":"rgba(30,156,137,1)"}},"textfont":{"color":"rgba(30,156,137,1)"},"error_y":{"color":"rgba(30,156,137,1)"},"error_x":{"color":"rgba(30,156,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5208],"x":["poultry counter"],"type":"bar","name":"poultry counter","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5608],"x":["packaged poultry"],"type":"bar","name":"packaged poultry","marker":{"color":"rgba(31,160,136,1)","line":{"color":"rgba(31,160,136,1)"}},"textfont":{"color":"rgba(31,160,136,1)"},"error_y":{"color":"rgba(31,160,136,1)"},"error_x":{"color":"rgba(31,160,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5894],"x":["cleaning products"],"type":"bar","name":"cleaning products","marker":{"color":"rgba(31,161,135,1)","line":{"color":"rgba(31,161,135,1)"}},"textfont":{"color":"rgba(31,161,135,1)"},"error_y":{"color":"rgba(31,161,135,1)"},"error_x":{"color":"rgba(31,161,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6134],"x":["grains rice dried goods"],"type":"bar","name":"grains rice dried goods","marker":{"color":"rgba(32,163,134,1)","line":{"color":"rgba(32,163,134,1)"}},"textfont":{"color":"rgba(32,163,134,1)"},"error_y":{"color":"rgba(32,163,134,1)"},"error_x":{"color":"rgba(32,163,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6352],"x":["hot cereal pancake mixes"],"type":"bar","name":"hot cereal pancake mixes","marker":{"color":"rgba(33,165,133,1)","line":{"color":"rgba(33,165,133,1)"}},"textfont":{"color":"rgba(33,165,133,1)"},"error_y":{"color":"rgba(33,165,133,1)"},"error_x":{"color":"rgba(33,165,133,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6741],"x":["fruit vegetable snacks"],"type":"bar","name":"fruit vegetable snacks","marker":{"color":"rgba(33,166,133,1)","line":{"color":"rgba(33,166,133,1)"}},"textfont":{"color":"rgba(33,166,133,1)"},"error_y":{"color":"rgba(33,166,133,1)"},"error_x":{"color":"rgba(33,166,133,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6917],"x":["popcorn jerky"],"type":"bar","name":"popcorn jerky","marker":{"color":"rgba(34,168,132,1)","line":{"color":"rgba(34,168,132,1)"}},"textfont":{"color":"rgba(34,168,132,1)"},"error_y":{"color":"rgba(34,168,132,1)"},"error_x":{"color":"rgba(34,168,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[7007],"x":["asian foods"],"type":"bar","name":"asian foods","marker":{"color":"rgba(36,170,131,1)","line":{"color":"rgba(36,170,131,1)"}},"textfont":{"color":"rgba(36,170,131,1)"},"error_y":{"color":"rgba(36,170,131,1)"},"error_x":{"color":"rgba(36,170,131,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[7661],"x":["frozen pizza"],"type":"bar","name":"frozen pizza","marker":{"color":"rgba(37,172,130,1)","line":{"color":"rgba(37,172,130,1)"}},"textfont":{"color":"rgba(37,172,130,1)"},"error_y":{"color":"rgba(37,172,130,1)"},"error_x":{"color":"rgba(37,172,130,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8251],"x":["missing"],"type":"bar","name":"missing","marker":{"color":"rgba(39,173,129,1)","line":{"color":"rgba(39,173,129,1)"}},"textfont":{"color":"rgba(39,173,129,1)"},"error_y":{"color":"rgba(39,173,129,1)"},"error_x":{"color":"rgba(39,173,129,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8353],"x":["tortillas flat bread"],"type":"bar","name":"tortillas flat bread","marker":{"color":"rgba(41,175,127,1)","line":{"color":"rgba(41,175,127,1)"}},"textfont":{"color":"rgba(41,175,127,1)"},"error_y":{"color":"rgba(41,175,127,1)"},"error_x":{"color":"rgba(41,175,127,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8392],"x":["coffee"],"type":"bar","name":"coffee","marker":{"color":"rgba(44,177,126,1)","line":{"color":"rgba(44,177,126,1)"}},"textfont":{"color":"rgba(44,177,126,1)"},"error_y":{"color":"rgba(44,177,126,1)"},"error_x":{"color":"rgba(44,177,126,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8870],"x":["frozen appetizers sides"],"type":"bar","name":"frozen appetizers sides","marker":{"color":"rgba(46,179,124,1)","line":{"color":"rgba(46,179,124,1)"}},"textfont":{"color":"rgba(46,179,124,1)"},"error_y":{"color":"rgba(46,179,124,1)"},"error_x":{"color":"rgba(46,179,124,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[9279],"x":["spices seasonings"],"type":"bar","name":"spices seasonings","marker":{"color":"rgba(49,181,123,1)","line":{"color":"rgba(49,181,123,1)"}},"textfont":{"color":"rgba(49,181,123,1)"},"error_y":{"color":"rgba(49,181,123,1)"},"error_x":{"color":"rgba(49,181,123,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[9376],"x":["tea"],"type":"bar","name":"tea","marker":{"color":"rgba(51,182,121,1)","line":{"color":"rgba(51,182,121,1)"}},"textfont":{"color":"rgba(51,182,121,1)"},"error_y":{"color":"rgba(51,182,121,1)"},"error_x":{"color":"rgba(51,182,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[9729],"x":["frozen breakfast"],"type":"bar","name":"frozen breakfast","marker":{"color":"rgba(54,184,120,1)","line":{"color":"rgba(54,184,120,1)"}},"textfont":{"color":"rgba(54,184,120,1)"},"error_y":{"color":"rgba(54,184,120,1)"},"error_x":{"color":"rgba(54,184,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[9736],"x":["pasta sauce"],"type":"bar","name":"pasta sauce","marker":{"color":"rgba(57,186,118,1)","line":{"color":"rgba(57,186,118,1)"}},"textfont":{"color":"rgba(57,186,118,1)"},"error_y":{"color":"rgba(57,186,118,1)"},"error_x":{"color":"rgba(57,186,118,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[9743],"x":["condiments"],"type":"bar","name":"condiments","marker":{"color":"rgba(60,187,117,1)","line":{"color":"rgba(60,187,117,1)"}},"textfont":{"color":"rgba(60,187,117,1)"},"error_y":{"color":"rgba(60,187,117,1)"},"error_x":{"color":"rgba(60,187,117,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[9851],"x":["breakfast bakery"],"type":"bar","name":"breakfast bakery","marker":{"color":"rgba(63,188,115,1)","line":{"color":"rgba(63,188,115,1)"}},"textfont":{"color":"rgba(63,188,115,1)"},"error_y":{"color":"rgba(63,188,115,1)"},"error_x":{"color":"rgba(63,188,115,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[9917],"x":["instant foods"],"type":"bar","name":"instant foods","marker":{"color":"rgba(67,190,113,1)","line":{"color":"rgba(67,190,113,1)"}},"textfont":{"color":"rgba(67,190,113,1)"},"error_y":{"color":"rgba(67,190,113,1)"},"error_x":{"color":"rgba(67,190,113,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[9980],"x":["cookies cakes"],"type":"bar","name":"cookies cakes","marker":{"color":"rgba(70,192,111,1)","line":{"color":"rgba(70,192,111,1)"}},"textfont":{"color":"rgba(70,192,111,1)"},"error_y":{"color":"rgba(70,192,111,1)"},"error_x":{"color":"rgba(70,192,111,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[10575],"x":["butter"],"type":"bar","name":"butter","marker":{"color":"rgba(74,193,109,1)","line":{"color":"rgba(74,193,109,1)"}},"textfont":{"color":"rgba(74,193,109,1)"},"error_y":{"color":"rgba(74,193,109,1)"},"error_x":{"color":"rgba(74,193,109,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[10620],"x":["oils vinegars"],"type":"bar","name":"oils vinegars","marker":{"color":"rgba(78,195,107,1)","line":{"color":"rgba(78,195,107,1)"}},"textfont":{"color":"rgba(78,195,107,1)"},"error_y":{"color":"rgba(78,195,107,1)"},"error_x":{"color":"rgba(78,195,107,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11298],"x":["dry pasta"],"type":"bar","name":"dry pasta","marker":{"color":"rgba(82,197,105,1)","line":{"color":"rgba(82,197,105,1)"}},"textfont":{"color":"rgba(82,197,105,1)"},"error_y":{"color":"rgba(82,197,105,1)"},"error_x":{"color":"rgba(82,197,105,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11453],"x":["candy chocolate"],"type":"bar","name":"candy chocolate","marker":{"color":"rgba(86,198,103,1)","line":{"color":"rgba(86,198,103,1)"}},"textfont":{"color":"rgba(86,198,103,1)"},"error_y":{"color":"rgba(86,198,103,1)"},"error_x":{"color":"rgba(86,198,103,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11774],"x":["canned meals beans"],"type":"bar","name":"canned meals beans","marker":{"color":"rgba(90,200,100,1)","line":{"color":"rgba(90,200,100,1)"}},"textfont":{"color":"rgba(90,200,100,1)"},"error_y":{"color":"rgba(90,200,100,1)"},"error_x":{"color":"rgba(90,200,100,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[12102],"x":["spreads"],"type":"bar","name":"spreads","marker":{"color":"rgba(93,201,98,1)","line":{"color":"rgba(93,201,98,1)"}},"textfont":{"color":"rgba(93,201,98,1)"},"error_y":{"color":"rgba(93,201,98,1)"},"error_x":{"color":"rgba(93,201,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[12356],"x":["cream"],"type":"bar","name":"cream","marker":{"color":"rgba(98,203,95,1)","line":{"color":"rgba(98,203,95,1)"}},"textfont":{"color":"rgba(98,203,95,1)"},"error_y":{"color":"rgba(98,203,95,1)"},"error_x":{"color":"rgba(98,203,95,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[12532],"x":["nuts seeds dried fruit"],"type":"bar","name":"nuts seeds dried fruit","marker":{"color":"rgba(102,204,93,1)","line":{"color":"rgba(102,204,93,1)"}},"textfont":{"color":"rgba(102,204,93,1)"},"error_y":{"color":"rgba(102,204,93,1)"},"error_x":{"color":"rgba(102,204,93,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[12679],"x":["canned jarred vegetables"],"type":"bar","name":"canned jarred vegetables","marker":{"color":"rgba(106,205,91,1)","line":{"color":"rgba(106,205,91,1)"}},"textfont":{"color":"rgba(106,205,91,1)"},"error_y":{"color":"rgba(106,205,91,1)"},"error_x":{"color":"rgba(106,205,91,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[12694],"x":["paper goods"],"type":"bar","name":"paper goods","marker":{"color":"rgba(111,206,88,1)","line":{"color":"rgba(111,206,88,1)"}},"textfont":{"color":"rgba(111,206,88,1)"},"error_y":{"color":"rgba(111,206,88,1)"},"error_x":{"color":"rgba(111,206,88,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[12813],"x":["hot dogs bacon sausage"],"type":"bar","name":"hot dogs bacon sausage","marker":{"color":"rgba(116,208,85,1)","line":{"color":"rgba(116,208,85,1)"}},"textfont":{"color":"rgba(116,208,85,1)"},"error_y":{"color":"rgba(116,208,85,1)"},"error_x":{"color":"rgba(116,208,85,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[12820],"x":["other creams cheeses"],"type":"bar","name":"other creams cheeses","marker":{"color":"rgba(120,209,83,1)","line":{"color":"rgba(120,209,83,1)"}},"textfont":{"color":"rgba(120,209,83,1)"},"error_y":{"color":"rgba(120,209,83,1)"},"error_x":{"color":"rgba(120,209,83,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[13088],"x":["baking ingredients"],"type":"bar","name":"baking ingredients","marker":{"color":"rgba(124,210,80,1)","line":{"color":"rgba(124,210,80,1)"}},"textfont":{"color":"rgba(124,210,80,1)"},"error_y":{"color":"rgba(124,210,80,1)"},"error_x":{"color":"rgba(124,210,80,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[13198],"x":["baby food formula"],"type":"bar","name":"baby food formula","marker":{"color":"rgba(129,211,77,1)","line":{"color":"rgba(129,211,77,1)"}},"textfont":{"color":"rgba(129,211,77,1)"},"error_y":{"color":"rgba(129,211,77,1)"},"error_x":{"color":"rgba(129,211,77,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[13460],"x":["packaged produce"],"type":"bar","name":"packaged produce","marker":{"color":"rgba(134,213,73,1)","line":{"color":"rgba(134,213,73,1)"}},"textfont":{"color":"rgba(134,213,73,1)"},"error_y":{"color":"rgba(134,213,73,1)"},"error_x":{"color":"rgba(134,213,73,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[14350],"x":["juice nectars"],"type":"bar","name":"juice nectars","marker":{"color":"rgba(139,214,70,1)","line":{"color":"rgba(139,214,70,1)"}},"textfont":{"color":"rgba(139,214,70,1)"},"error_y":{"color":"rgba(139,214,70,1)"},"error_x":{"color":"rgba(139,214,70,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[15109],"x":["soup broth bouillon"],"type":"bar","name":"soup broth bouillon","marker":{"color":"rgba(144,215,67,1)","line":{"color":"rgba(144,215,67,1)"}},"textfont":{"color":"rgba(144,215,67,1)"},"error_y":{"color":"rgba(144,215,67,1)"},"error_x":{"color":"rgba(144,215,67,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[15142],"x":["fresh dips tapenades"],"type":"bar","name":"fresh dips tapenades","marker":{"color":"rgba(148,216,64,1)","line":{"color":"rgba(148,216,64,1)"}},"textfont":{"color":"rgba(148,216,64,1)"},"error_y":{"color":"rgba(148,216,64,1)"},"error_x":{"color":"rgba(148,216,64,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[16052],"x":["fresh herbs"],"type":"bar","name":"fresh herbs","marker":{"color":"rgba(154,217,61,1)","line":{"color":"rgba(154,217,61,1)"}},"textfont":{"color":"rgba(154,217,61,1)"},"error_y":{"color":"rgba(154,217,61,1)"},"error_x":{"color":"rgba(154,217,61,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[16201],"x":["cereal"],"type":"bar","name":"cereal","marker":{"color":"rgba(159,218,58,1)","line":{"color":"rgba(159,218,58,1)"}},"textfont":{"color":"rgba(159,218,58,1)"},"error_y":{"color":"rgba(159,218,58,1)"},"error_x":{"color":"rgba(159,218,58,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[16279],"x":["soft drinks"],"type":"bar","name":"soft drinks","marker":{"color":"rgba(163,218,55,1)","line":{"color":"rgba(163,218,55,1)"}},"textfont":{"color":"rgba(163,218,55,1)"},"error_y":{"color":"rgba(163,218,55,1)"},"error_x":{"color":"rgba(163,218,55,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[16957],"x":["lunch meat"],"type":"bar","name":"lunch meat","marker":{"color":"rgba(169,219,51,1)","line":{"color":"rgba(169,219,51,1)"}},"textfont":{"color":"rgba(169,219,51,1)"},"error_y":{"color":"rgba(169,219,51,1)"},"error_x":{"color":"rgba(169,219,51,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[17449],"x":["energy granola bars"],"type":"bar","name":"energy granola bars","marker":{"color":"rgba(174,220,48,1)","line":{"color":"rgba(174,220,48,1)"}},"textfont":{"color":"rgba(174,220,48,1)"},"error_y":{"color":"rgba(174,220,48,1)"},"error_x":{"color":"rgba(174,220,48,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[18221],"x":["frozen meals"],"type":"bar","name":"frozen meals","marker":{"color":"rgba(179,221,45,1)","line":{"color":"rgba(179,221,45,1)"}},"textfont":{"color":"rgba(179,221,45,1)"},"error_y":{"color":"rgba(179,221,45,1)"},"error_x":{"color":"rgba(179,221,45,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[19592],"x":["crackers"],"type":"bar","name":"crackers","marker":{"color":"rgba(184,222,41,1)","line":{"color":"rgba(184,222,41,1)"}},"textfont":{"color":"rgba(184,222,41,1)"},"error_y":{"color":"rgba(184,222,41,1)"},"error_x":{"color":"rgba(184,222,41,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[19875],"x":["eggs"],"type":"bar","name":"eggs","marker":{"color":"rgba(189,223,38,1)","line":{"color":"rgba(189,223,38,1)"}},"textfont":{"color":"rgba(189,223,38,1)"},"error_y":{"color":"rgba(189,223,38,1)"},"error_x":{"color":"rgba(189,223,38,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[22453],"x":["frozen produce"],"type":"bar","name":"frozen produce","marker":{"color":"rgba(194,223,35,1)","line":{"color":"rgba(194,223,35,1)"}},"textfont":{"color":"rgba(194,223,35,1)"},"error_y":{"color":"rgba(194,223,35,1)"},"error_x":{"color":"rgba(194,223,35,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[22676],"x":["ice cream ice"],"type":"bar","name":"ice cream ice","marker":{"color":"rgba(200,224,32,1)","line":{"color":"rgba(200,224,32,1)"}},"textfont":{"color":"rgba(200,224,32,1)"},"error_y":{"color":"rgba(200,224,32,1)"},"error_x":{"color":"rgba(200,224,32,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[23228],"x":["refrigerated"],"type":"bar","name":"refrigerated","marker":{"color":"rgba(204,225,29,1)","line":{"color":"rgba(204,225,29,1)"}},"textfont":{"color":"rgba(204,225,29,1)"},"error_y":{"color":"rgba(204,225,29,1)"},"error_x":{"color":"rgba(204,225,29,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[23635],"x":["bread"],"type":"bar","name":"bread","marker":{"color":"rgba(209,226,27,1)","line":{"color":"rgba(209,226,27,1)"}},"textfont":{"color":"rgba(209,226,27,1)"},"error_y":{"color":"rgba(209,226,27,1)"},"error_x":{"color":"rgba(209,226,27,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[26240],"x":["soy lactosefree"],"type":"bar","name":"soy lactosefree","marker":{"color":"rgba(215,226,25,1)","line":{"color":"rgba(215,226,25,1)"}},"textfont":{"color":"rgba(215,226,25,1)"},"error_y":{"color":"rgba(215,226,25,1)"},"error_x":{"color":"rgba(215,226,25,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[31269],"x":["chips pretzels"],"type":"bar","name":"chips pretzels","marker":{"color":"rgba(220,227,24,1)","line":{"color":"rgba(220,227,24,1)"}},"textfont":{"color":"rgba(220,227,24,1)"},"error_y":{"color":"rgba(220,227,24,1)"},"error_x":{"color":"rgba(220,227,24,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[32644],"x":["milk"],"type":"bar","name":"milk","marker":{"color":"rgba(224,227,24,1)","line":{"color":"rgba(224,227,24,1)"}},"textfont":{"color":"rgba(224,227,24,1)"},"error_y":{"color":"rgba(224,227,24,1)"},"error_x":{"color":"rgba(224,227,24,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[36617],"x":["water seltzer sparkling water"],"type":"bar","name":"water seltzer sparkling water","marker":{"color":"rgba(230,228,25,1)","line":{"color":"rgba(230,228,25,1)"}},"textfont":{"color":"rgba(230,228,25,1)"},"error_y":{"color":"rgba(230,228,25,1)"},"error_x":{"color":"rgba(230,228,25,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[41699],"x":["packaged cheese"],"type":"bar","name":"packaged cheese","marker":{"color":"rgba(235,229,26,1)","line":{"color":"rgba(235,229,26,1)"}},"textfont":{"color":"rgba(235,229,26,1)"},"error_y":{"color":"rgba(235,229,26,1)"},"error_x":{"color":"rgba(235,229,26,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[55240],"x":["yogurt"],"type":"bar","name":"yogurt","marker":{"color":"rgba(239,229,28,1)","line":{"color":"rgba(239,229,28,1)"}},"textfont":{"color":"rgba(239,229,28,1)"},"error_y":{"color":"rgba(239,229,28,1)"},"error_x":{"color":"rgba(239,229,28,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[78493],"x":["packaged vegetables fruits"],"type":"bar","name":"packaged vegetables fruits","marker":{"color":"rgba(244,230,30,1)","line":{"color":"rgba(244,230,30,1)"}},"textfont":{"color":"rgba(244,230,30,1)"},"error_y":{"color":"rgba(244,230,30,1)"},"error_x":{"color":"rgba(244,230,30,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[150473],"x":["fresh fruits"],"type":"bar","name":"fresh fruits","marker":{"color":"rgba(248,230,33,1)","line":{"color":"rgba(248,230,33,1)"}},"textfont":{"color":"rgba(248,230,33,1)"},"error_y":{"color":"rgba(248,230,33,1)"},"error_x":{"color":"rgba(248,230,33,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[150609],"x":["fresh vegetables"],"type":"bar","name":"fresh vegetables","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="column-1" class="section level2" data-width="350">
+<h2>Column</h2>
+<div id="chart-b" class="section level3">
+<h3>Chart B</h3>
+</div>
+<div id="chart-c" class="section level3">
+<h3>Chart C</h3>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
