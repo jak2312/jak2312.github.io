@@ -1,5 +1,5 @@
 ---
-title: "Dashboard"
+title: "Instacart Dashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -23,53 +23,27 @@ instacart =
   select(-eval_set, -add_to_cart_order, -order_id, -days_since_prior_order)
 ```
 
-Column {.sidebar}
------------------------------------------------------------------------
-
-```{r}
-aisle_choices = instacart %>% pull(aisle) %>% unique()
-
-selectInput(
-  "aisle_choice",
-  h3("Aisle Choice"),
-  choices = aisle_choices,
-  selected = "fresh fruits"
-)
-
-sliderInput(
-  "items ordered",
-  h3("Price Range"),
-  100, 1000, 
-  value = c(100, 400))
-
-room_choices = nyc_airbnb %>% pull(room_type) %>% unique()
-
-radioButtons(
-  "room_choice",
-  h3("Room Type"),
-  choices = room_choices
-)
-```
-
 Column {data-width=650}
 -----------------------------------------------------------------------
 
 ### Chart A
 
 ```{r}
+
 instacart %>% 
-	count(aisle) %>% 
+	count(department) %>% 
 	mutate(
-		aisle = factor(aisle),
-		aisle = fct_reorder(aisle, n)
+		department = factor(department),
+		department = fct_reorder(department, n)
 	) %>% 
-	plot_ly(y = ~n, x = ~aisle, color = ~aisle,
+	plot_ly(y = ~n, x = ~department, color = ~department,
 	        type = "bar", colors = "viridis") %>% 
   layout(
-    title = "Items ordered by Aisle",
-    xaxis = list(title = "Aisle"),
+    title = "Items ordered by Department",
+    xaxis = list(title = "Department"),
     yaxis = list(title = "# Ordered")
     )
+
 ```
 
 Column {data-width=350}
