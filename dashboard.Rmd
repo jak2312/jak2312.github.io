@@ -20,13 +20,13 @@ data("instacart")
 
 instacart = 
   instacart %>% 
-  select(-eval_set, -add_to_cart_order, -order_id, -days_since_prior_order)
+  select(-eval_set, -add_to_cart_order, -days_since_prior_order)
 ```
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Items ordered by Hour and Day of Week
+### Items Ordered by Hour and Day of Week
 
 ```{r}
 
@@ -48,7 +48,7 @@ instacart %>%
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Items ordered by Department
+### Items Ordered by Department
 
 ```{r}
 
@@ -67,9 +67,20 @@ instacart %>%
 
 ```
 
-### Chart C
+### Histogram of Amount of Orders Placed by User Throughout the Year
 
 ```{r}
+
+instacart %>% 
+  group_by(user_id) %>% 
+  summarise(times_ordered = max(order_number)) %>% 
+  plot_ly(x = ~times_ordered, 
+          type = "histogram", nbinsx = 25) %>% 
+  layout(
+    xaxis = list(title = "Time Ordered"),
+    yaxis = list(title = "Frequency Count")
+    )
+  
 
 ```
 
