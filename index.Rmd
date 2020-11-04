@@ -12,4 +12,7 @@ I am currently a graduate student at the Mailman School of Public Health pursuin
 
 In my past role, I have been able to apply my engineering background to analyze large medical data sets and create an effective machine learning classifier for computer-aided diagnosis. I feel that my academic research experience and passions for technology and data have given me technical skills, interpersonal skills, as well as a driven and problem-solving mindset that I can utilize to succeed in the research industry and provide value to an employer.
 
+## Resume
+[Click Here](about.html) or About on navigation bar to view my resume
+
 
