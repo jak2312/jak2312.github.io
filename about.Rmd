@@ -1,0 +1,78 @@
+--- 
+title: "Jared Klug's Website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# Education
+
+**Columbia University - School of Public Health**  
+Master of Science in Biostatistics – Theory and Methods  
+New York, NY  
+*Anticipated Graduation: April 2022*  
+
+**Boston University – College of Engineering**  
+Bachelor of Science in Biomedical Engineering  
+Boston, MA  
+*Graduated: May 2019*  
+Honors: Cum Laude
+
+
+
+# Academic Experience
+
+**EpiPen Container**  
+Intro to Engineering Design  
+
+*	Built a functional prototype container for an EpiPen to resists extreme temperature changes
+
+*	Designed on AutoCAD and 3D printed in ABS plastic
+
+* Utilized an Arduino to control electronic heating pad and cooling pad by temperature input
+
+**Cloning a Fluorescent Protein**  
+Principles of Molecular Cell Biology and Biotechnology  
+
+*	Cloned a Fluorescent gene in bacteria throughout multiple procedures ultimately utilizing PCR
+
+* Gained experience and knowledge of standard biology lab procedure and tools
+
+
+# Professional Experience
+
+**Martinos Center for Biomedical Imaging**  							          
+Non-employee Undergraduate Researcher – Brain Aging and Dementia Lab  
+Charlestown, MA  
+September 2018 – May 2019  
+
+* Successfully created multiple machine learning classifier models
+
+* Programmed R script to collect, clean, and organize relevant information from a large dataset
+
+* Collaborated with Principal Investigator to analyze blood biomarker trends in dementia patients
+
+* Developed report of findings using R Markdown to examine results and validity of ML model
+
+* Presented findings at the 45th Annual Northeast Biomedical Engineering Conference (NEBEC)
+
+**S.F. Falconer Florist Inc.**                                                                            
+Floral Clerk & Shop Assistant  
+Port Washington, NY  
+November 2019 – June 2020  
+
+* Assisted an average of 20 customers a day selecting items or making recommendations
+
+* Water plants, and cut, condition, and clean flowers and foliage for storage
+
+**Boston University Career Development Office**                                
+Front Desk Assistant   
+Boston, MA  
+May 2018 – December 2018  
+
+* Responsible for operating student scheduling systems and directing people to the appropriate supervisor
+
+* Prepared information and materials for supervisors on student events 
+
+
