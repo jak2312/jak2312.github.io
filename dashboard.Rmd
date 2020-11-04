@@ -26,7 +26,7 @@ instacart =
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Items ordered by Hour and Day of Week
 
 ```{r}
 
@@ -39,7 +39,6 @@ instacart %>%
   plot_ly(x = ~order_hour_of_day, y = ~n,
           type = "scatter", mode = "lines+markers", color = ~order_dow) %>% 
     layout(
-    title = "Items ordered by Hour and Day of Week",
     xaxis = list(title = "Hour of the Day"),
     yaxis = list(title = "# Ordered")
     )
@@ -49,7 +48,7 @@ instacart %>%
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Items ordered by Department
 
 ```{r}
 
@@ -62,7 +61,6 @@ instacart %>%
 	plot_ly(y = ~n, x = ~department, color = ~department,
 	        type = "bar", colors = "viridis") %>% 
   layout(
-    title = "Items ordered by Department",
     xaxis = list(title = "Department"),
     yaxis = list(title = "# Ordered")
     )
