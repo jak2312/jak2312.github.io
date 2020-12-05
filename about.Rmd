@@ -23,6 +23,15 @@ Honors: Cum Laude
 
 # Academic Experience
 
+**Comparing COVID-19 to other Pandemics and Outbreaks**
+Data Science
+
+* Created iterative script to pull up-to-date data from WHO on the on-going COVID-19 Pandemic
+
+* Clean, tidy, and manipulated large datasets to produce visualizations and analyze trends in R
+
+* Produced an [interactive Shiny Dashboard](https://jak2312.shinyapps.io/shiny_dashboard/) choropleth map of pandemic cases globally
+
 **EpiPen Container**  
 Intro to Engineering Design  
 
