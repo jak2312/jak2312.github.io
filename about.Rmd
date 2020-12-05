@@ -24,7 +24,7 @@ Honors: Cum Laude
 # Academic Experience
 
 **Comparing COVID-19 to other Pandemics and Outbreaks**  
-Data Science
+Data Science  
 
 * Created iterative script to pull up-to-date data from WHO on the on-going COVID-19 Pandemic
 
